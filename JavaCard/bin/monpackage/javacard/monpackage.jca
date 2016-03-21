@@ -1,0 +1,153 @@
+// converted by version 1.3
+// on Tue Dec 08 21:09:54 CET 2015
+
+.package monpackage {
+	.aid 0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.3;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0:0x0 MyServer;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef byte MyServer/compteur;
+		// 1
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 2
+		classRef MyServer;
+		// 3
+		staticMethodRef MyServer/<init>()V;
+		// 4
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 5
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 6
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 7
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 8
+		virtualMethodRef 0.10.8(SS)V;		// setOutgoingAndSend(SS)V
+		// 9
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+	}
+
+	.class public MyServer 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private byte compteur 0;		// B
+			public static final byte CLA_MONAPPLET = -80;		// B
+			public static final byte INS_INCREMENTER_COMPTEUR = 0;		// B
+			public static final byte INS_DECREMENTER_COMPTEUR = 1;		// B
+			public static final byte INS_INTERROGER_COMPTEUR = 2;		// B
+			public static final byte INS_INITIALISER_COMPTEUR = 3;		// B
+		}
+
+		.publicMethodTable 7 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method private <init>()V {
+			.stack 2;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 1;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					sconst_0;
+					putfield_b 0;		// byte monpackage/MyServer.compteur
+					return;
+		}
+
+		.method public static install([BSB)V 0 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 2;		// monpackage/MyServer
+					dup;
+					invokespecial 3;		// monpackage/MyServer.<init>()V
+					invokevirtual 4;		// register()V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 5;		// getBuffer()[B
+					astore_2;
+					aload_0;
+					invokevirtual 6;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_2;
+					sconst_0;
+					baload;
+					bspush -80;
+					if_scmpeq L4;
+				L3:	sspush 28160;
+					invokestatic 7;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	aload_2;
+					sconst_1;
+					baload;
+					stableswitch L9 0 3 L5 L6 L7 L8;
+				L5:	aload_0;
+					dup;
+					getfield_b 0;		// byte monpackage/MyServer.compteur
+					sconst_1;
+					sadd;
+					s2b;
+					putfield_b 0;		// byte monpackage/MyServer.compteur
+					goto L10;
+				L6:	aload_0;
+					dup;
+					getfield_b 0;		// byte monpackage/MyServer.compteur
+					sconst_1;
+					ssub;
+					s2b;
+					putfield_b 0;		// byte monpackage/MyServer.compteur
+					goto L10;
+				L7:	aload_2;
+					sconst_0;
+					getfield_b_this 0;		// byte monpackage/MyServer.compteur
+					bastore;
+					aload_1;
+					sconst_0;
+					sconst_1;
+					invokevirtual 8;		// setOutgoingAndSend(SS)V
+					goto L10;
+				L8:	aload_1;
+					invokevirtual 9;		// setIncomingAndReceive()S
+					pop;
+					aload_0;
+					aload_2;
+					sconst_5;
+					baload;
+					putfield_b 0;		// byte monpackage/MyServer.compteur
+					goto L10;
+				L9:	sspush 27904;
+					invokestatic 7;		// javacard/framework/ISOException.throwIt(S)V
+				L10:	return;
+		}
+
+	}
+
+}
